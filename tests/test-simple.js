@@ -314,3 +314,13 @@ exports['test_remove'] = function(test, assert) {
 
   test.finish();
 };
+
+exports['test_cdata_write'] = function(test, assert) {
+    var root = Element('root');
+    root.append(et.CData('if(0>1) then true;'));
+    var etree = new ElementTree(root);
+    var xml = etree.write({'xml_declaration': false});
+    assert.equal(xml, '<root><![CDATA[if(0>1) then true;]]></root>');
+
+    test.finish();
+};
